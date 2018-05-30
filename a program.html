@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>A Program</title>
+<head>
+
+<body>
+<p>Calculator</p>
+<p id="display"></p>
+<p id="operator"></p>
+<p>Total</p>
+<p id="total"></p>
+<div id="container">
+  <button id="1" onclick="press(1)">1</button>
+  <button id="2" onclick="press(2)">2</button>
+  <button id="3" onclick="press(3)">3</button><br>
+  <button id="4" onclick="press(4)">4</button>
+  <button id="5" onclick="press(5)">5</button>
+  <button id="6" onclick="press(6)">6</button><br>
+  <button id="7" onclick="press(7)">7</button>
+  <button id="8" onclick="press(8)">8</button>
+  <button id="9" onclick="press(9)">9</button><br>
+
+  <button id="add" onclick="add()">+</button>
+  <button id="min" onclick="min()">-</button>
+  <button id="multiply" onclick="multiply()">X</button>
+  <button id="multiply" onclick="divide()">/</button>
+  <button id="sum" onclick="result()">=</button>
+</div>
+</body>
+
+<script>
+  var store = 0;
+  var x = 0;
+  var firstMin = true;
+  var reset = false;
+  var y;
+  var z;
+  function press(input){
+    document.getElementById('display').innerHTML += input;
+  }
+  function add(){
+    if(!firstMin){
+      store -= Number(document.getElementById('display').innerHTML);
+      firstMin = true;
+    }else{
+      store += Number(document.getElementById('display').innerHTML);
+    }
+    document.getElementById('operator').innerHTML = '+';
+    document.getElementById('display').innerHTML = null;
+    sum();
+  }
+  function min(){
+    if(firstMin){
+      store += Number(document.getElementById('display').innerHTML);
+      firstMin = false;
+    }else{
+      store -= Number(document.getElementById('display').innerHTML);
+    }
+    document.getElementById('operator').innerHTML = '-';
+    document.getElementById('display').innerHTML = null;
+    sum();
+  }
+  function multiply(){
+    if(!firstMin){
+      store -= Number(document.getElementById('display').innerHTML);
+      firstMin = true;
+    }else{
+      if(store == 0){
+        store += Number(document.getElementById('display').innerHTML);
+      }else{
+        store *= Number(document.getElementById('display').innerHTML);
+      }
+    }
+    document.getElementById('operator').innerHTML = 'x';
+    document.getElementById('display').innerHTML = null;
+    sum();
+  }
+  function divide(){
+    if(!firstMin){
+      store -= Number(document.getElementById('display').innerHTML);
+      firstMin = true;
+    }else{
+      if(store == 0){
+        store += Number(document.getElementById('display').innerHTML);
+      }else{
+        store /= Number(document.getElementById('display').innerHTML);
+      }
+    }
+    document.getElementById('operator').innerHTML = '/';
+    document.getElementById('display').innerHTML = null;
+    sum();
+  }
+  function sum(){
+    if(document.getElementById('operator').innerHTML == '+'){
+      store += Number(document.getElementById('display').innerHTML);
+    }else if(document.getElementById('operator').innerHTML == '-'){
+      store -= Number(document.getElementById('display').innerHTML);
+    }else if(document.getElementById('operator').innerHTML == 'x'){
+      if(Number(document.getElementById('display').innerHTML) == 0){
+        store += Number(document.getElementById('display').innerHTML);
+      }else{
+        store *= Number(document.getElementById('display').innerHTML);
+      }
+    }else if(document.getElementById('operator').innerHTML == '/'){
+      if(Number(document.getElementById('display').innerHTML) == 0){
+        store += Number(document.getElementById('display').innerHTML);
+      }else{
+        store /= Number(document.getElementById('display').innerHTML);
+      }
+    }
+    document.getElementById('total').innerHTML = store;
+
+  }
+  function result(){
+    sum();
+    firstMin = true;
+    reset = true;
+    document.getElementById('display').innerHTML = null;
+    document.getElementById('total').innerHTML = store;
+  }
+</script>
+</html>
